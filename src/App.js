@@ -616,18 +616,18 @@ function App() {
         )}
         <audio 
           ref={audioRef} 
-          src={process.env.PUBLIC_URL + "/auld-lang-syne.mp3"}
+          src="https://2025newyear.vercel.app/auld-lang-syne.mp3"
           preload="auto"
         />
         <audio 
           ref={musicRef} 
-          src={process.env.PUBLIC_URL + "/song.mp3"}
+          src="https://2025newyear.vercel.app/song.mp3"
           preload="auto"
           loop
         />
         <audio 
           ref={celebrationRef} 
-          src={process.env.PUBLIC_URL + "/celebrate.mp3"}
+          src="https://2025newyear.vercel.app/celebrate.mp3"
           preload="auto"
         />
         <Footer>
