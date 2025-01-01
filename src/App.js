@@ -636,7 +636,7 @@ function App() {
               <span>Twitter</span> 🐦
             </SocialLink>
           </SocialLinksContainer>
-          <Copyright>© 2024 Nubs. All rights reserved.</Copyright>
+          <Copyright>© 2024-2025 Nubs. All rights reserved.</Copyright>
         </Footer>
       </AppContainer>
     </GlobalContainer>
