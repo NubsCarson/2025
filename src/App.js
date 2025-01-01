@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import Countdown from 'react-countdown';
 import styled, { keyframes, css } from 'styled-components';
 import confetti from 'canvas-confetti';
-import celebrationSound from './assets/celebrate.mp3';
-import backgroundMusic from './assets/song.mp3';
 
 const gradientAnimation = keyframes`
   0% { background-position: 0% 50%; }
@@ -617,14 +615,14 @@ function App() {
         )}
         <audio 
           ref={musicRef} 
-          src={backgroundMusic}
+          src="/song.mp3"
           type="audio/mpeg"
           preload="auto"
           loop
         />
         <audio 
           ref={celebrationRef} 
-          src={celebrationSound}
+          src="/celebrate.mp3"
           type="audio/mpeg"
           preload="auto"
         />
