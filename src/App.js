@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Countdown from 'react-countdown';
 import styled, { keyframes, css } from 'styled-components';
 import confetti from 'canvas-confetti';
@@ -408,8 +408,8 @@ function App() {
   const musicRef = useRef(null);
   const timerRef = useRef(null);
   
-  // Set target time to midnight PST explicitly
-  const targetDate = new Date('2025-01-01T00:00:00-08:00');
+  // Set target time to midnight PST explicitly using useMemo
+  const targetDate = useMemo(() => new Date('2025-01-01T00:00:00-08:00'), []);
 
   useEffect(() => {
     // Function to update time with high precision
