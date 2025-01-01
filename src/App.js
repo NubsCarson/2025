@@ -404,9 +404,8 @@ function App() {
   const [isSoundEnabled, setIsSoundEnabled] = useState(false);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const audioRef = useRef(null);
-  const musicRef = useRef(null);
   const celebrationRef = useRef(null);
+  const musicRef = useRef(null);
   
   // Set target time to midnight PST
   const targetDate = new Date('January 1, 2025 00:00:00 PST');
@@ -614,12 +613,6 @@ function App() {
             </MessageContainer>
           </>
         )}
-        <audio 
-          ref={audioRef} 
-          src={`${process.env.PUBLIC_URL}/auld-lang-syne.mp3`}
-          type="audio/mpeg"
-          preload="auto"
-        />
         <audio 
           ref={musicRef} 
           src={`${process.env.PUBLIC_URL}/song.mp3`}
