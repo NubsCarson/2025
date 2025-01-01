@@ -448,7 +448,7 @@ function App() {
     if (!isNewYear && pstTime >= targetDate) {
       setIsNewYear(true);
     }
-  }, [currentTime, isNewYear]);
+  }, [currentTime, isNewYear, targetDate]);
 
   useEffect(() => {
     // Add floating party emojis
