@@ -616,18 +616,18 @@ function App() {
         )}
         <audio 
           ref={audioRef} 
-          src="/auld-lang-syne.mp3"
+          src={process.env.PUBLIC_URL + "/auld-lang-syne.mp3"}
           preload="auto"
         />
         <audio 
           ref={musicRef} 
-          src="/song.mp3"
+          src={process.env.PUBLIC_URL + "/song.mp3"}
           preload="auto"
           loop
         />
         <audio 
           ref={celebrationRef} 
-          src="/celebrate.mp3"
+          src={process.env.PUBLIC_URL + "/celebrate.mp3"}
           preload="auto"
         />
         <Footer>
