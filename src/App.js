@@ -615,14 +615,14 @@ function App() {
         )}
         <audio 
           ref={musicRef} 
-          src="/song.mp3"
+          src={`${window.location.origin}/song.mp3`}
           type="audio/mpeg"
           preload="auto"
           loop
         />
         <audio 
           ref={celebrationRef} 
-          src="/celebrate.mp3"
+          src={`${window.location.origin}/celebrate.mp3`}
           type="audio/mpeg"
           preload="auto"
         />
