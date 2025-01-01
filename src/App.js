@@ -406,6 +406,7 @@ function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const audioRef = useRef(null);
   const musicRef = useRef(null);
+  const celebrationRef = useRef(null);
   
   // Set target time to midnight PST
   const targetDate = new Date('January 1, 2025 00:00:00 PST');
@@ -491,9 +492,9 @@ function App() {
         }));
       }, 250);
 
-      // Play audio if enabled
-      if (isSoundEnabled && audioRef.current) {
-        audioRef.current.play().catch(e => console.log('Audio playback failed:', e));
+      // Play celebration sound if enabled
+      if (isSoundEnabled && celebrationRef.current) {
+        celebrationRef.current.play().catch(e => console.log('Celebration playback failed:', e));
       }
 
       return () => clearInterval(interval);
@@ -523,6 +524,11 @@ function App() {
 
   const toggleSound = () => {
     setIsSoundEnabled(!isSoundEnabled);
+    // If turning off sound while celebration is playing, pause it
+    if (isSoundEnabled && celebrationRef.current) {
+      celebrationRef.current.pause();
+      celebrationRef.current.currentTime = 0;
+    }
   };
 
   const toggleMusic = () => {
@@ -618,6 +624,11 @@ function App() {
           src="/song.mp3"
           preload="auto"
           loop
+        />
+        <audio 
+          ref={celebrationRef} 
+          src="/celebrate.mp3"
+          preload="auto"
         />
         <Footer>
           <SocialLinksContainer>
