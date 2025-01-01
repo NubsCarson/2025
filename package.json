@@ -13,10 +13,14 @@
     "styled-components": "^6.1.13",
     "web-vitals": "^4.2.4"
   },
+  "devDependencies": {
+    "@craco/craco": "^7.1.0",
+    "file-loader": "^6.2.0"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
