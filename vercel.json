@@ -12,6 +12,7 @@
   "routes": [
     {
       "src": "/static/(.*)",
+      "headers": { "cache-control": "s-maxage=31536000, immutable" },
       "dest": "/static/$1"
     },
     {
@@ -23,12 +24,8 @@
       "dest": "/manifest.json"
     },
     {
-      "src": "/song.mp3",
-      "dest": "/song.mp3"
-    },
-    {
-      "src": "/auld-lang-syne.mp3",
-      "dest": "/auld-lang-syne.mp3"
+      "src": "/(.*).(png|jpg|gif|svg|ico)",
+      "dest": "/$1.$2"
     },
     {
       "src": "/(.*)",
