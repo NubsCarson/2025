@@ -406,18 +406,49 @@ function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const celebrationRef = useRef(null);
   const musicRef = useRef(null);
+  const timerRef = useRef(null);
   
-  // Set target time to midnight PST
-  const targetDate = new Date('January 1, 2025 00:00:00 PST');
+  // Set target time to midnight PST explicitly
+  const targetDate = new Date('2025-01-01T00:00:00-08:00');
 
   useEffect(() => {
-    // Update clock every second
-    const clockInterval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
+    // Function to update time with high precision
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime(now);
+      
+      // Calculate next second boundary
+      const msToNextSecond = 1000 - now.getMilliseconds();
+      
+      // Clear existing timer
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+      
+      // Set timer for next update
+      timerRef.current = setTimeout(() => {
+        updateTime();
+      }, msToNextSecond);
+    };
 
-    return () => clearInterval(clockInterval);
+    // Initial update
+    updateTime();
+
+    // Cleanup
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
   }, []);
+
+  // Check if it's new year every second with PST comparison
+  useEffect(() => {
+    const pstTime = new Date(currentTime.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+    if (!isNewYear && pstTime >= targetDate) {
+      setIsNewYear(true);
+    }
+  }, [currentTime, isNewYear]);
 
   useEffect(() => {
     // Add floating party emojis
@@ -500,22 +531,33 @@ function App() {
     }
   }, [isNewYear, isSoundEnabled]);
 
-  const renderer = ({ hours, minutes, seconds }) => (
-    <CountdownDisplay>
-      <TimeUnit>
-        <TimeValue>{String(hours).padStart(2, '0')}</TimeValue>
-        <TimeLabel>Hours</TimeLabel>
-      </TimeUnit>
-      <TimeUnit>
-        <TimeValue>{String(minutes).padStart(2, '0')}</TimeValue>
-        <TimeLabel>Minutes</TimeLabel>
-      </TimeUnit>
-      <TimeUnit>
-        <TimeValue>{String(seconds).padStart(2, '0')}</TimeValue>
-        <TimeLabel>Seconds</TimeLabel>
-      </TimeUnit>
-    </CountdownDisplay>
-  );
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    if (completed) {
+      return null;
+    }
+    return (
+      <CountdownDisplay>
+        {days > 0 && (
+          <TimeUnit>
+            <TimeValue>{String(days).padStart(2, '0')}</TimeValue>
+            <TimeLabel>Days</TimeLabel>
+          </TimeUnit>
+        )}
+        <TimeUnit>
+          <TimeValue>{String(hours).padStart(2, '0')}</TimeValue>
+          <TimeLabel>Hours</TimeLabel>
+        </TimeUnit>
+        <TimeUnit>
+          <TimeValue>{String(minutes).padStart(2, '0')}</TimeValue>
+          <TimeLabel>Minutes</TimeLabel>
+        </TimeUnit>
+        <TimeUnit>
+          <TimeValue>{String(seconds).padStart(2, '0')}</TimeValue>
+          <TimeLabel>Seconds</TimeLabel>
+        </TimeUnit>
+      </CountdownDisplay>
+    );
+  };
 
   const handleComplete = () => {
     setIsNewYear(true);
@@ -541,6 +583,7 @@ function App() {
 
   const formatTime = (date) => {
     return date.toLocaleTimeString('en-US', { 
+      timeZone: 'America/Los_Angeles',
       hour: '2-digit', 
       minute: '2-digit', 
       second: '2-digit',
